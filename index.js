@@ -6,12 +6,21 @@ let jsonObjectTournage= await reponseTournages.json() // conversion de reponse a
 
 let elementsTournages = jsonObjectTournage.records //stockage du tableau records dans une variable elementsTournages
 
-// console.log(elementsTournages)
+console.log(elementsTournages)
 
+const titreListeTypeTournage = document.getElementById("titre")
+titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 
-let tailleTableau= elementsTournages.length // stockage de la taille du tableau dans une variable utilisée pour définir la taille de la boucle
-for (let i=0; i<tailleTableau;i++){
-    let elementTypeTournage= elementsTournages[i]
-    console.log(elementTypeTournage.fields.type_tournage) // récupération de la valeur de la clé type de tournage, stockée dans la clé field
+let tailleTableau = 10
+console.log(tailleTableau) // stockage de la taille du tableau dans une variable utilisée pour définir la taille de la boucle
+for (let i=0; i < tailleTableau; i++){
+    // console.log('boucle n°'+i)
+    let elementsParTournages = elementsTournages[i]
+    let typeTournage = elementsParTournages.fields.type_tournage
+    console.log(typeTournage) // récupération de la valeur de la clé type de tournage, stockée dans la clé field
+    
+    const listeTypeTournage = document.createElement('p');
+    listeTypeTournage.innerText = typeTournage
+    titreListeTypeTournage.appendChild(listeTypeTournage)
 }
 
