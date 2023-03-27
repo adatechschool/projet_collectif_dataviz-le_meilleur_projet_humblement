@@ -18,20 +18,11 @@ titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 //variable pour manipuler un tableau de taille 100
 let tailleTableau = 100
 
-let elementsTournagesFiltre={}
-const boutonArr = document.getElementById("boutonArr")
-boutonArr.addEventListener("click",function(){
-  let filtreArr = document.getElementById("arrondissementSelect").value  
-  //tableau filtré par un arrondissemnt 
-   elementsTournagesFiltre = elementsTournages.filter (item => {
-      return item.fields.ardt_lieu == filtreArr
-      
-    });
-    let compteTournages= {}
 
+let compteTournages={}
 
 for (let i=0;i<tailleTableau;i++){
-  let annee=elementsTournagesFiltre[i].fields.annee_tournage
+  let annee=elementsTournages[i].fields.annee_tournage
   //console.log(annee)
   if (annee in compteTournages!=true){
     compteTournages[annee]=1
@@ -60,48 +51,11 @@ new Chart(
     }
   }
 );
-})
+
 // récuperation de la valeur dans le filtre déroulant, dans le html
 
-console.log(elementsTournagesFiltre)
-
-/*
-//compte des tournages par année
-let compteTournages= {}
-
-
-for (let i=0;i<tailleTableau;i++){
-  let annee=elementsTournagesFiltre[i].fields.annee_tournage
-  //console.log(annee)
-  if (annee in compteTournages!=true){
-    compteTournages[annee]=1
-  }
-  else {
-    compteTournages[annee]+=1
-  }
-}
-//console.log(compteTournages)
-
-
-
-//graphe tournages par années
-new Chart(
-  document.getElementById('consolidations'),
-  {
-    type: 'bar',
-    data: {
-      labels: Object.keys(compteTournages),
-      datasets: [
-        {
-          label: 'Nombre de lieux de tournage par année',
-          data: Object.values(compteTournages),
-        }
-      ]
-    }
-  }
-);*/
-// compte des arrondissement par tournages 
 let compteTournagesArr={}
+
 for (let i=0;i<tailleTableau;i++){
   let arrondissement=elementsTournages[i].fields.ardt_lieu
   console.log(arrondissement)
@@ -131,6 +85,24 @@ new Chart(
 );
 
 
+
+let elementsTournagesFiltre={}
+const boutonArr = document.getElementById("boutonArr")
+boutonArr.addEventListener("click",function(){
+  let filtreArr = document.getElementById("arrondissementSelect").value  
+  //tableau filtré par un arrondissemnt 
+  elementsTournagesFiltre = elementsTournages.filter (item => {
+    return item.fields.ardt_lieu == filtreArr   
+  });
+  generateCharts(elementsTournagesFiltre)
+})
+
+
+
+const generateCharts = (films) =>{
+
+}
+
 // const filtreArr = document.getElementById("arrondissementSelect")
 // console.log(filtreArr.value)
 // let test= compteTournagesArr.filter(function(arr){
@@ -138,30 +110,6 @@ new Chart(
 // })
 
 
-// function filtre(arr){
-// 	const lessThan10Filter = arr => arr.filter(item => item < 10);
-// 	return lessThan10Filter
-// }
-
-
-
-
-// console.log(test)
 
 // autre manière de créer un filtre :
 //const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.ardt_lieu == filtreArr); 
-
-
-
-//affichage type de tournages (tests initiaux)
-// console.log(tailleTableau) // stockage de la taille du tableau dans une variable utilisée pour définir la taille de la boucle
-// for (let i=0; i < tailleTableau; i++){
-//     // console.log('boucle n°'+i)
-//     let elementsParTournages = elementsTournages[i]
-//     let typeTournage = elementsParTournages.fields.type_tournage
-//     console.log(typeTournage) // récupération de la valeur de la clé type de tournage, stockée dans la clé field
-    
-//     const listeTypeTournage = document.createElement('p');
-//     listeTypeTournage.innerText = typeTournage
-//     titreListeTypeTournage.appendChild(listeTypeTournage)
-// }
