@@ -6,8 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="module" src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
-    <h1>Page Projet Collectif Data Viz</h1>
+    <h1 id="titre">Page Projet Collectif Data Viz</h1>
+    <label for="ardtTournage">Arrondissement Tournage :</label></br>
+    <input list="ardtTournage" >
+    <datalist id="ardtTournage">
+        <option value="75001">
+        <option value="75002">
+        <option value="75003">
+        <option value="75004">
+        <option value="75005">
+        <option value="75006">
+        <option value="75007">
+        <option value="75008">
+        <option value="75009">
+        <option value="75010">
+        <option value="75011">
+        <option value="75012">
+        <option value="75013">
+        <option value="75013">
+        <option value="75014">
+        <option value="75015">
+        <option value="75016">
+        <option value="75017">
+        <option value="75018">
+        <option value="75019">
+        <option value="75020">  
+    </datalist></br>
+    </br>
+    <label for="anneeTournage">Année Tournage :</label></br>
+    <input list="anneeTournage" >
+    <datalist id="anneeTournage">
+        <option value="2016">
+        <option value="2017">
+        <option value="2018">
+        <option value="2019">
+        <option value="2020">
+        <option value="2021"> 
+    </datalist>
+    <h3>section des Graphes</h3>
+    <div style="width: 800px;"><canvas id="consolidations"></canvas></div>
+    <script type="module" src="chartManagement.js"></script>
+
+
 </body>
 </html>

@@ -11,7 +11,7 @@ console.log(elementsTournages)
 const titreListeTypeTournage = document.getElementById("titre")
 titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 
-let tailleTableau = 10
+let tailleTableau = 100
 console.log(tailleTableau) // stockage de la taille du tableau dans une variable utilisée pour définir la taille de la boucle
 for (let i=0; i < tailleTableau; i++){
     // console.log('boucle n°'+i)
@@ -23,4 +23,41 @@ for (let i=0; i < tailleTableau; i++){
     listeTypeTournage.innerText = typeTournage
     titreListeTypeTournage.appendChild(listeTypeTournage)
 }
+
+
+let compteTournages= {
+    '2016':0,
+    '2017':0,
+    '2018':0,
+    '2019':0,
+    '2020':0,
+    '2021':0,
+}
+
+console.log(compteTournages)
+
+for (let i=0;i<tailleTableau;i++){
+    let annee=elementsTournages[i].fields.annee_tournage
+    console.log(annee)
+    compteTournages[annee]+=1
+    compteTournages[annee]=compteTournages[annee]+1
+}
+console.log(compteTournages)
+
+new Chart(
+          document.getElementById('consolidations'),
+          {
+            type: 'bar',
+            data: {
+              labels: Object.keys(compteTournages),
+              datasets: [
+                {
+                  label: 'Nombre de lieux de tournage par année',
+                  data: Object.values(compteTournages),
+                }
+              ]
+            }
+          }
+        );
+
 
