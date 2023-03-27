@@ -8,7 +8,7 @@ let elementsTournages = jsonObjectTournage.records //stockage du tableau records
 
 console.log(elementsTournages)
 
-const titreListeTypeTournage = document.getElementById("titre")
+const titreListeTypeTournage = document.getElementById("titre") 
 titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 
 let tailleTableau = 100
@@ -24,13 +24,28 @@ for (let i=0; i < tailleTableau; i++){
     titreListeTypeTournage.appendChild(listeTypeTournage)
 }
 
+let filtreArr = document.getElementById("arrondissementSelect").value  
+//const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.ardt_lieu == filtreArr);
+ 
+  
+	const elementsTournagesFiltre = elementsTournages.filter (item => {
+    return item.fields.ardt_lieu == 75018
+  });
+  console.log(elementsTournagesFiltre)
+
+// const liste = [1, 30, 2, 7, 11, 25];
+// let result = filtre(elementsTournages)
+// console.log(result);
+
+
+
 //compte des tournages par année
 let compteTournages= {}
 
 console.log(compteTournages)
 
 for (let i=0;i<tailleTableau;i++){
-    let annee=elementsTournages[i].fields.annee_tournage
+    let annee=elementsTournagesFiltre[i].fields.annee_tournage
     console.log(annee)
     if (annee in compteTournages!=true){
       compteTournages[annee]=1
@@ -88,3 +103,36 @@ new Chart(
     }
   }
 );
+
+
+// const filtreArr = document.getElementById("arrondissementSelect")
+// console.log(filtreArr.value)
+// let test= compteTournagesArr.filter(function(arr){
+//   return arr.filterArr.value
+// })
+
+
+// function filtre(arr){
+// 	const lessThan10Filter = arr => arr.filter(item => item < 10);
+// 	return lessThan10Filter
+// }
+
+
+
+
+// function lessThan10Filter(arr){
+//   arr.filter(item => item < 10);
+//   return lessThan10Filter
+// }
+
+
+// const liste = [1, 30, 2, 7, 11, 25];
+// let result = filtre(elementsTournages)
+// console.log(result);
+
+// // résultat : [1, 2, 7]
+
+
+// console.log(test)
+
+
