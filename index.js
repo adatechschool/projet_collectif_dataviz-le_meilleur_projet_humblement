@@ -11,7 +11,7 @@ console.log(elementsTournages)
 const titreListeTypeTournage = document.getElementById("titre")
 titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 
-let tailleTableau = 10
+let tailleTableau = 100
 console.log(tailleTableau) // stockage de la taille du tableau dans une variable utilisée pour définir la taille de la boucle
 for (let i=0; i < tailleTableau; i++){
     // console.log('boucle n°'+i)
@@ -24,3 +24,67 @@ for (let i=0; i < tailleTableau; i++){
     titreListeTypeTournage.appendChild(listeTypeTournage)
 }
 
+//compte des tournages par année
+let compteTournages= {}
+
+console.log(compteTournages)
+
+for (let i=0;i<tailleTableau;i++){
+    let annee=elementsTournages[i].fields.annee_tournage
+    console.log(annee)
+    if (annee in compteTournages!=true){
+      compteTournages[annee]=1
+    }
+    else {
+      compteTournages[annee]+=1
+    }
+    // compteTournages[annee]+=1
+
+}
+console.log(compteTournages)
+
+//graphe tournages par années
+new Chart(
+  document.getElementById('consolidations'),
+  {
+    type: 'bar',
+    data: {
+      labels: Object.keys(compteTournages),
+      datasets: [
+        {
+          label: 'Nombre de lieux de tournage par année',
+          data: Object.values(compteTournages),
+        }
+      ]
+    }
+  }
+);
+
+let compteTournagesArr={}
+for (let i=0;i<tailleTableau;i++){
+  let arrondissement=elementsTournages[i].fields.ardt_lieu
+  console.log(arrondissement)
+  if (arrondissement in compteTournagesArr!=1){
+    compteTournagesArr[arrondissement]=1
+  }
+  else {compteTournagesArr[arrondissement]+=1
+  }
+}
+console.log(compteTournagesArr)
+
+//graphe tournages par arrondissements 
+new Chart(
+  document.getElementById('consolidationsArr'),
+  {
+    type: 'bar',
+    data: {
+      labels: Object.keys(compteTournagesArr),
+      datasets: [
+        {
+          label: 'Nombre de lieux de tournage par arrondissement',
+          data: Object.values(compteTournagesArr),
+        }
+      ]
+    }
+  }
+);
