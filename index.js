@@ -8,13 +8,11 @@ let jsonObjectTournage= await reponseTournages.json()
 //stockage du tableau records dans une variable elementsTournages
 let elementsTournages = jsonObjectTournage.records 
 
-// console.log(elementsTournages)
-
 
 //affichage titre page HTML, à enlever
 const titreListeTypeTournage = document.getElementById("titre") 
 titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
-
+ 
 //variable pour manipuler un tableau de taille 100
 let tailleTableau = 100
 
