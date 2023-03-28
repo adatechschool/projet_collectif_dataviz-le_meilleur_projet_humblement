@@ -10,9 +10,22 @@
 </head>
 <body>
     <h1 id="titre">Page Projet Collectif Data Viz</h1>
+
+    <label for="anneeTournage">Année Tournage :</label></br>
+    <input list="anneeTournage" id="anneeSelect">
+    <datalist id="anneeTournage">
+        <option value="2016">
+        <option value="2017">
+        <option value="2018">
+        <option value="2019">
+        <option value="2020">
+        <option value="2021"> 
+    </datalist>
+    <button id="boutonAnnee"> ok </button></br>
+    </br>
+
     <label for="ardtTournage">Arrondissement Tournage :</label></br>
     <input list="ardtTournage"  id="arrondissementSelect" >
-    <button id="boutonArr"> ok </button> 
     <datalist id="ardtTournage">
         <option value="75001">
         <option value="75002">
@@ -35,23 +48,26 @@
         <option value="75018">
         <option value="75019">
         <option value="75020">  
-    </datalist> </br>
-    </br>
-    <label for="anneeTournage">Année Tournage :</label></br>
-    <input list="anneeTournage">
-    
-    <datalist id="anneeTournage">
-        <option value="2016">
-        <option value="2017">
-        <option value="2018">
-        <option value="2019">
-        <option value="2020">
-        <option value="2021"> 
     </datalist>
-    <button id="boutonAnnee"> ok </button> 
+    <button id="boutonArr"> ok </button> </br>
+    </br>
+
+    <label for="typeTournage">Type de Tournage :</label></br>
+    <input list="typeTournage" id="typeSelect">
+    <datalist id="typeTournage">
+        <option value="Long Métrage">
+        <option value="Série TV">
+        <option value="Série Web">
+        <option value="Téléfilm">
+    </datalist>
+    <button id="boutonType"> ok </button> 
+
+    <h3 id="nombrefilms">Nombre Total de Films</h3>
+
     <h3>section des Graphes</h3>
-    <div style="width: 800px;"><canvas id="consolidations"></canvas></div>
+    <div style="width: 800px;"><canvas id="consolidationsAnnee"></canvas></div>
     <div style="width: 800px;"><canvas id="consolidationsArr"></canvas></div>
+    <div style="width: 800px;"><canvas id="consolidationsType"></canvas></div>
     <!-- <script type="module" src="chartManagement.js"></script> -->
 
 
