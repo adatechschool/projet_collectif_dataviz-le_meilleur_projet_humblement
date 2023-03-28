@@ -24,6 +24,8 @@ let compteTournagesAnnee={}
 let compteTournagesArr={}
 let compteTournagesType={}
 let anneeChart={}
+let arrChart={}
+let typeChart={}
 
 //fonction de comptage et d'affichage des films
 const compteFilms = (tableauLength) =>{
@@ -54,10 +56,10 @@ const generateCharts = (films) =>{
   //mise à jour nombre de films considérés
   compteFilms(films.length)
   //graphe tournages par années
-  new Chart(
+  anneeChart = new Chart(
     document.getElementById('consolidationsAnnee'),
     {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: Object.keys(compteTournagesAnnee),
         datasets: [
@@ -85,7 +87,7 @@ const generateCharts = (films) =>{
   // console.log(compteTournagesArr)
   
   //graphe tournages par arrondissements 
-  anneeChart = new Chart(
+  arrChart = new Chart(
     document.getElementById('consolidationsArr'),
     {
       type: 'bar',
@@ -114,7 +116,7 @@ const generateCharts = (films) =>{
 
 
   //graphe tournages par arrondissements 
-  new Chart(
+  typeChart = new Chart(
     document.getElementById('consolidationsType'),
     {
       type: 'bar',
@@ -143,19 +145,27 @@ generateCharts(elementsTournages)
 
 
 //filtre sur les années
-const boutonAnnee = document.getElementById("boutonAnnee")
-boutonAnnee.addEventListener("click",function(){
+const boutonValidation = document.getElementById("boutonValidation")
+boutonValidation.addEventListener("click",function(){
   let filtreAnnee = document.getElementById("anneeSelect").value  
+  let filtreArr = document.getElementById("arrSelect").value
+  let filtreType = document.getElementById("typeSelect").value
   //tableau filtré par un arrondissemnt 
   console.log(filtreAnnee)
-  const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee); 
+  console.log(filtreArr)
+  console.log(filtreType)
+  const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu == filtreArr && tournage.fields.type_tournage == filtreType); 
   // elementsTournagesFiltreAnnee = elementsTournages.filter (item => {
   //   return item.fields.annee_tournage == filtreAnnee 
   // });
   // console.log('Tableau filtré par année')
   // console.log(elementsTournagesFiltreAnnee)
-  compteTournagesAnnee={}
   anneeChart.destroy()
+  arrChart.destroy()
+  typeChart.destroy()
+  compteTournagesAnnee={}
+  compteTournagesArr={}
+  compteTournagesType={}
   generateCharts(elementsTournagesFiltre)
 })
 

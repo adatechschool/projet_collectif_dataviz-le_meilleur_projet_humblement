@@ -11,7 +11,7 @@
 <body>
     <h1 id="titre">Page Projet Collectif Data Viz</h1>
 
-    <label for="anneeTournage">Année Tournage :</label></br>
+    <label for="anneeTournage">Année Tournage :</label><br>
     <input list="anneeTournage" id="anneeSelect">
     <datalist id="anneeTournage">
         <option value="2016">
@@ -21,11 +21,10 @@
         <option value="2020">
         <option value="2021"> 
     </datalist>
-    <button id="boutonAnnee"> ok </button></br>
-    </br>
+    <br>
 
-    <label for="ardtTournage">Arrondissement Tournage :</label></br>
-    <input list="ardtTournage"  id="arrondissementSelect" >
+    <label for="ardtTournage">Arrondissement Tournage :</label><br>
+    <input list="ardtTournage" id="arrSelect" >
     <datalist id="ardtTournage">
         <option value="75001">
         <option value="75002">
@@ -49,10 +48,9 @@
         <option value="75019">
         <option value="75020">  
     </datalist>
-    <button id="boutonArr"> ok </button> </br>
-    </br>
+    <br>
 
-    <label for="typeTournage">Type de Tournage :</label></br>
+    <label for="typeTournage">Type de Tournage :</label><br>
     <input list="typeTournage" id="typeSelect">
     <datalist id="typeTournage">
         <option value="Long Métrage">
@@ -60,8 +58,23 @@
         <option value="Série Web">
         <option value="Téléfilm">
     </datalist>
-    <button id="boutonType"> ok </button> 
-
+    <br>
+    <br>
+    <button id="boutonValidation"> ok </button><br>
+    <label for="annee2">Test Select Multiple</label><br>
+    <select multiple
+        name="dwarfs"
+        id="dwarfs"
+        multiselect-search="true"
+        multiselect-select-all="true"
+        multiselect-max-items="3"
+        multiselect-hide-x = "false"
+        >
+        <option>Long Métrage</option>
+        <option>Série TV</option>
+        <option>Série Web</option>
+        <option>Téléfilm</option>
+    </select>
     <h3 id="nombrefilms">Nombre Total de Films</h3>
 
     <h3>section des Graphes</h3>
