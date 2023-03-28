@@ -23,7 +23,7 @@ let elementsTournagesFiltreType={}
 let compteTournagesAnnee={}
 let compteTournagesArr={}
 let compteTournagesType={}
-
+let anneeChart={}
 
 //fonction de comptage et d'affichage des films
 const compteFilms = (tableauLength) =>{
@@ -85,7 +85,7 @@ const generateCharts = (films) =>{
   // console.log(compteTournagesArr)
   
   //graphe tournages par arrondissements 
-  new Chart(
+  anneeChart = new Chart(
     document.getElementById('consolidationsArr'),
     {
       type: 'bar',
@@ -153,6 +153,8 @@ boutonAnnee.addEventListener("click",function(){
   });
   // console.log('Tableau filtré par année')
   // console.log(elementsTournagesFiltreAnnee)
+  compteTournagesAnnee={}
+  anneeChart.destroy()
   generateCharts(elementsTournagesFiltreAnnee)
 })
 
