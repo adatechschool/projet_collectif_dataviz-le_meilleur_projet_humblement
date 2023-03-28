@@ -150,16 +150,34 @@ boutonValidation.addEventListener("click",function(){
   let filtreAnnee = document.getElementById("anneeSelect").value  
   let filtreArr = document.getElementById("arrSelect").value
   let filtreType = document.getElementById("typeSelect").value
+  let elementsTournagesFiltre={}
   //tableau filtré par un arrondissemnt 
   console.log(filtreAnnee)
   console.log(filtreArr)
   console.log(filtreType)
-  const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu == filtreArr && tournage.fields.type_tournage == filtreType); 
-  // elementsTournagesFiltreAnnee = elementsTournages.filter (item => {
-  //   return item.fields.annee_tournage == filtreAnnee 
-  // });
-  // console.log('Tableau filtré par année')
-  // console.log(elementsTournagesFiltreAnnee)
+  if (filtreArr=="" && filtreType==""){
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee)
+  }
+  else if (filtreAnnee=="" && filtreType==""){
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.ardt_lieu == filtreArr)
+  }
+  else if (filtreAnnee=="" && filtreArr==""){
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.type_tournage == filtreType)
+  } 
+  else if (filtreAnnee==""){
+      elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.ardt_lieu == filtreArr && tournage.fields.type_tournage == filtreType)
+  }
+  else if (filtreArr==""){
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.type_tournage == filtreType)
+  }
+  else if (filtreType==""){
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu)
+  }
+  else {
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu == filtreArr && tournage.fields.type_tournage == filtreType); 
+  }
+
+
   anneeChart.destroy()
   arrChart.destroy()
   typeChart.destroy()
