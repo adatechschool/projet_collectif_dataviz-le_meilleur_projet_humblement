@@ -25,15 +25,23 @@ let compteTournagesArr={}
 let compteTournagesType={}
 
 
+//fonction de comptage et d'affichage des films
+const compteFilms = (tableauLength) =>{
+  console.log(tableauLength)
+  compteurFilms.innerHTML=""
+  compteurFilms.innerText=tableauLength
+  containerNbrFilms.appendChild(compteurFilms) 
+}
+
+
 //fonction globale de création des graphs, qq soit le dataset, filtré ou non
 const generateCharts = (films) =>{
   //data set année tournage
-
-  //affichage du nombre de films total
-
-
-
-  for (let i=0;i<tailleTableau;i++){
+  //On clear l'espace alloué à chaque Graph
+  document.getElementById("consolidationsAnnee").innerHTML=""
+  document.getElementById("consolidationsArr").innerHTML=""
+  document.getElementById("consolidationsType").innerHTML=""
+  for (let i=0;i<films.length;i++){
     let annee=films[i].fields.annee_tournage
     //console.log(annee)
     if (annee in compteTournagesAnnee!=true){
@@ -43,7 +51,8 @@ const generateCharts = (films) =>{
       compteTournagesAnnee[annee]+=1
     }
   }
-
+  //mise à jour nombre de films considérés
+  compteFilms(films.length)
   //graphe tournages par années
   new Chart(
     document.getElementById('consolidationsAnnee'),
@@ -64,7 +73,7 @@ const generateCharts = (films) =>{
   // récuperation de la valeur dans le filtre déroulant, dans le html
   
   
-  for (let i=0;i<tailleTableau;i++){
+  for (let i=0;i<films.length;i++){
     let arrondissement=films[i].fields.ardt_lieu
     // console.log(arrondissement)
     if (arrondissement in compteTournagesArr!=1){
@@ -92,7 +101,7 @@ const generateCharts = (films) =>{
     }
   );
 
-  for (let i=0;i<tailleTableau;i++){
+  for (let i=0;i<films.length;i++){
     let typeTournage=films[i].fields.type_tournage
     // console.log(typeTournage)
     if (typeTournage in compteTournagesType!=1){
@@ -102,7 +111,8 @@ const generateCharts = (films) =>{
     }
   }
   
-  
+
+
   //graphe tournages par arrondissements 
   new Chart(
     document.getElementById('consolidationsType'),
@@ -121,18 +131,15 @@ const generateCharts = (films) =>{
   );
 }
 
+//Affichage par défaut du nombre total de films du scope considéré
+let containerNbrFilms=document.getElementById("nombrefilms")
+console.log(containerNbrFilms)
+let compteurFilms= document.createElement('p')
+compteFilms(tailleTableau)
 
 //affichage par défaut des charts non filtrés
 generateCharts(elementsTournages)
 
-//Affichage par défaut du nombre total de films du scope considéré
-
-
-let containerNbrFilms=document.getElementById("nombrefilms")
-console.log(containerNbrFilms)
-let compteurFilms= document.createElement('p')
-compteurFilms.innerText=tailleTableau
-containerNbrFilms.appendChild(compteurFilms)
 
 
 //filtre sur les années
@@ -146,7 +153,6 @@ boutonAnnee.addEventListener("click",function(){
   });
   // console.log('Tableau filtré par année')
   // console.log(elementsTournagesFiltreAnnee)
-  document.getElementById("consolidationsAnnee").innerHTML=""
   generateCharts(elementsTournagesFiltreAnnee)
 })
 
