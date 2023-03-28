@@ -148,14 +148,15 @@ boutonAnnee.addEventListener("click",function(){
   let filtreAnnee = document.getElementById("anneeSelect").value  
   //tableau filtré par un arrondissemnt 
   console.log(filtreAnnee)
-  elementsTournagesFiltreAnnee = elementsTournages.filter (item => {
-    return item.fields.annee_tournage == filtreAnnee 
-  });
+  const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee); 
+  // elementsTournagesFiltreAnnee = elementsTournages.filter (item => {
+  //   return item.fields.annee_tournage == filtreAnnee 
+  // });
   // console.log('Tableau filtré par année')
   // console.log(elementsTournagesFiltreAnnee)
   compteTournagesAnnee={}
   anneeChart.destroy()
-  generateCharts(elementsTournagesFiltreAnnee)
+  generateCharts(elementsTournagesFiltre)
 })
 
 // const boutonArr = document.getElementById("boutonArr")
