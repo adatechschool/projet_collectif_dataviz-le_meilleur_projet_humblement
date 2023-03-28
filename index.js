@@ -23,13 +23,14 @@ let elementsTournagesFiltreType={}
 let compteTournagesAnnee={}
 let compteTournagesArr={}
 let compteTournagesType={}
+let compteTournagesDuree={}
 let anneeChart={}
 let arrChart={}
 let typeChart={}
+let dureeChart={}
 
 //fonction de comptage et d'affichage des films
 const compteFilms = (tableauLength) =>{
-  console.log(tableauLength)
   compteurFilms.innerHTML=""
   compteurFilms.innerText=tableauLength
   containerNbrFilms.appendChild(compteurFilms) 
@@ -131,11 +132,50 @@ const generateCharts = (films) =>{
       }
     }
   );
+  
+  // affichage des tourages par durée
+  let dureeTournage=1
+  for (let i=0;i<films.length;i++){
+    let dateFin=new Date(films[i].fields.date_fin)
+    let dateDebut=new Date(films[i].fields.date_debut)
+    if (dateDebut.getDay()==dateFin.getDay()){
+      dureeTournage=1
+    }
+    else {
+      dureeTournage=dateFin.getDay() - dateDebut.getDay()
+    }
+    
+    // console.log(dureeTournage)
+    if (dureeTournage in compteTournagesDuree!=1){
+      compteTournagesDuree[dureeTournage]=1
+    }
+    else {compteTournagesDuree[dureeTournage]+=1
+    }
+  }
+  
+  
+  
+  //graphe tournages par arrondissements 
+  typeChart = new Chart(
+    document.getElementById('consolidationsDuree'),
+    {
+      type: 'bar',
+      data: {
+        labels: Object.keys(compteTournagesDuree),
+        datasets: [
+          {
+            label: 'Durée des Tournages',
+            data: Object.values(compteTournagesDuree),
+          }
+        ]
+      }
+    }
+  );
+
 }
 
 //Affichage par défaut du nombre total de films du scope considéré
 let containerNbrFilms=document.getElementById("nombrefilms")
-console.log(containerNbrFilms)
 let compteurFilms= document.createElement('p')
 compteFilms(tailleTableau)
 
@@ -186,6 +226,10 @@ boutonValidation.addEventListener("click",function(){
   compteTournagesType={}
   generateCharts(elementsTournagesFiltre)
 })
+
+
+
+
 
 // const boutonArr = document.getElementById("boutonArr")
 // boutonArr.addEventListener("click",function(){
