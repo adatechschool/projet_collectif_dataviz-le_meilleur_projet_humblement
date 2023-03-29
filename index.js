@@ -8,7 +8,7 @@ let jsonObjectTournage= await reponseTournages.json()
 //stockage du tableau records dans une variable elementsTournages
 let elementsTournages = jsonObjectTournage.records 
 
-// console.log(elementsTournages)
+console.log(elementsTournages)
 
 
 //affichage titre page HTML, à enlever
@@ -183,8 +183,9 @@ compteFilms(tailleTableau)
 generateCharts(elementsTournages)
 
 
+// const filtre =()=>
 
-//filtre sur les années
+//utilisation des filtres
 const boutonValidation = document.getElementById("boutonValidation")
 boutonValidation.addEventListener("click",function(){
   let filtreAnnee = document.getElementById("anneeSelect").value  
@@ -228,31 +229,71 @@ boutonValidation.addEventListener("click",function(){
 })
 
 
+let labelsTableau =[
+  "type_tournage",
+  "date_fin",
+  "nom_tournage",
+  "ardt_lieu",
+  "nom_realisateur",
+  "adresse_lieu",
+  "date_debut",
+  "annee_tournage"
+]
+
+
+// fonction création de tableau
+const createTable =(tableauDonnees)=>{
+  console.log('triggered')
+  //création d'un tableau vide dans le dom sour la div tableaudonnee
+  const tableauDetail=document.createElement('TABLE')
+  tableauDetail.classList.add('chartjs-table')
+  const lastChar = document.getElementById('tableaudonnee')
+
+  //initialisatiojn du head du tabkleau
+  const tableauhead=tableauDetail.createTHead()
+  tableauhead.classList.add('chartjs-head')
+  //remplissage du head avec les lavel stockées dans labelsTableau
+  tableauhead.insertRow(0)
+  for (let i=0;i<labelsTableau.length;i++){
+    tableauhead.rows[0].insertCell(i).innerText=labelsTableau[i]
+  }
+  //ajout d'une cellule supplémentaire affichant data
+  // tableauhead.rows[0].insertCell(0).innerText='Data'
+
+  // creation du corps du tableau
+  const tableauBody=tableauDetail.createTBody()
+  tableauBody.classList.add('chartjs-body')
+  
+  //remplissage du body du tableau
+  for (let i=0;i<tableauDonnees.length;i++){
+    console.log('i='+i)
+    tableauBody.insertRow(i)
+    labelsTableau.forEach(element =>{
+      let index=labelsTableau.indexOf(element)
+      tableauBody.rows[i].insertCell(index).innerText=tableauDonnees[i][element]
+    })
+  }
+
+  lastChar.appendChild(tableauDetail)
+}
+
+
+let graphAnnee=document.getElementById("consolidationsAnnee")
+graphAnnee.addEventListener("click",function(){
+  createTable (tableauTest)
+})
 
 
 
-// const boutonArr = document.getElementById("boutonArr")
-// boutonArr.addEventListener("click",function(){
-//   let filtreArr = document.getElementById("arrondissementSelect").value  
-//   //tableau filtré par un arrondissemnt 
-//   elementsTournagesFiltreArr = elementsTournages.filter (item => {
-//     return item.fields.ardt_lieu == filtreArr   
-//   });
-//   generateCharts(elementsTournagesFiltreArr)
-// })
+
+//tableau créé pour test, pas utile
+let tableauTest=[]
 
 
-// const boutonType = document.getElementById("boutonType")
-// boutonType.addEventListener("click",function(){
-//   let filtreType = document.getElementById("typeSelect").value  
-//   //tableau filtré par un arrondissemnt 
-//   elementsTournagesFiltreType = elementsTournages.filter (item => {
-//     return item.fields.type_tournage == filtreType
-//   });
-//   generateCharts(elementsTournagesFiltreType)
-// })
-
-
-
-// autre manière de créer un filtre :
-//const elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.ardt_lieu == filtreArr); 
+for (let i=0;i<10;i++){
+  let elementTableauTest={}
+  labelsTableau.forEach(element =>{
+    elementTableauTest[element] = elementsTournages[i].fields[element]
+  })
+  tableauTest.push(elementTableauTest)
+}
