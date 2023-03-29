@@ -190,9 +190,9 @@ const filtre =()=>{
   let filtreType = document.getElementById("typeSelect").value
   let elementsTournagesFiltre={}
   //tableau filtré par un arrondissemnt 
-  console.log(filtreAnnee)
-  console.log(filtreArr)
-  console.log(filtreType)
+  // console.log(filtreAnnee)
+  // console.log(filtreArr)
+  // console.log(filtreType)
   if (filtreArr=="" && filtreType==""){
     elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee)
   }
