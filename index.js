@@ -11,57 +11,158 @@ let elementsTournages = jsonObjectTournage.records
 
 //affichage titre page HTML, à enlever
 const titreListeTypeTournage = document.getElementById("titre") 
-titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
+titreListeTypeTournage.innerText = "Les tournages à Paris"
  
-//variable pour manipuler un tableau de taille 100
-let tailleTableau = 100
 
-let elementsTournagesFiltre={}
+//variable  = longueur du tableau général
+let tailleTableau = elementsTournages.length
+
+
+///////   COMPTEUR DU NOMBRE TOTAL DE TOURNAGE PAR ANNÉE
+let compteTournagesAnnee = {}
+
+for (let i=0; i < elementsTournages.length; i++){
+  let annee = elementsTournages[i].fields.annee_tournage
+  //console.log(annee)
+  if (annee in compteTournagesAnnee != true){
+    compteTournagesAnnee[annee]=1
+  }
+  else {
+    compteTournagesAnnee[annee]+=1
+  }
+}
+
+///////   COMPTEUR DU NOMBRE TOTAL DE TOURNAGE PAR ANNÉE
+///////   TOUT ARRONDISSEMENT CONFONDU
+let compteTournagesArrondissement = {}
+
+for (let i=0; i < elementsTournages.length; i++){
+  let annee = elementsTournages[i].fields.annee_tournage
+  //console.log(annee)
+  if (annee in compteTournagesArrondissement != true){
+    compteTournagesArrondissement[annee]=1
+  }
+  else {
+    compteTournagesArrondissement[annee]+=1
+  }
+}
+
+
+///// GRAPHIQUE : nombre de tournage par année + tout arrondissement
+const mixedChart = new Chart(document.getElementById('consolidations'), {
+  type: 'bar',
+  data: {
+    datasets: [
+      {
+        label: "bar : Nombre tournage par an",
+        data : Object.values(compteTournagesAnnee),
+        order : 2
+      }, {
+        label : "line : Nombre tournage par an pour l'arrondissement ",
+        data : Object.values(compteTournagesArrondissement),
+        type: "line",
+        order: 1
+      }
+    ],
+    labels: Object.keys(compteTournagesAnnee),
+  },
+}
+);
+
+
+// COMPTEUR DU NB DE TOURNAGE PAR ANNÉE POUR L'ARRONDISSEMENT CHOISI
+let filtreArr
+let tournagesFiltreArrondissement
+
 const boutonArr = document.getElementById("boutonArr")
 boutonArr.addEventListener("click",function(){
-  let filtreArr = document.getElementById("arrondissementSelect").value  
+  filtreArr = document.getElementById("arrondissementSelect").value  
+  //tableau filtré par un arrondissemnt 
+  tournagesFiltreArrondissement = elementsTournages.filter (item => {
+      return item.fields.ardt_lieu == filtreArr
+
+    });
+// après filtre : elementsTournagesFiltre = { "les tournages détaillés du 11ème" }
+
+compteTournagesArrondissement = {}
+
+for (let i=0; i < tournagesFiltreArrondissement.length; i++){
+  let annee = tournagesFiltreArrondissement[i].fields.annee_tournage
+  //console.log(annee)
+  if (annee in compteTournagesArrondissement != true){
+    compteTournagesArrondissement[annee]=1
+  }
+  else {
+    compteTournagesArrondissement[annee]+=1
+  }
+}}
+)
+
+
+
+
+// BOUTON CHOIX ARRONDISSEMENT
+
+/*
+let filtreArr
+
+const boutonArr = document.getElementById("boutonArr")
+boutonArr.addEventListener("click",function(){
+  filtreArr = document.getElementById("arrondissementSelect").value  
   //tableau filtré par un arrondissemnt 
    elementsTournagesFiltre = elementsTournages.filter (item => {
       return item.fields.ardt_lieu == filtreArr
-      
+
     });
-    let compteTournages= {}
+    // après filtre : elementsTournagesFiltre = { "les tournages détaillés du 11ème" }
 
 
-for (let i=0;i<tailleTableau;i++){
-  let annee=elementsTournagesFiltre[i].fields.annee_tournage
+  //  compteTournagesArrondissement = {}
+
+for (let i=0; i < elementsTournagesFiltre.length; i++){
+  let annee = elementsTournagesFiltre[i].fields.annee_tournage
   //console.log(annee)
-  if (annee in compteTournages!=true){
-    compteTournages[annee]=1
+  if (annee in compteTournagesArrondissement != true){
+    compteTournagesArrondissement[annee]=1
   }
   else {
-    compteTournages[annee]+=1
+    compteTournagesArrondissement[annee]+=1
   }
 }
-//console.log(compteTournages)
+// après boucle : compteTournages = {2019:1, 2020:2, 2021:5, ...} 
+  
 
 
-
-//graphe tournages par années
+//graphe tournages par années dans un arrondissment choisi
 new Chart(
   document.getElementById('consolidations'),
   {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: Object.keys(compteTournages),
       datasets: [
         {
-          label: 'Nombre de lieux de tournage par année',
-          data: Object.values(compteTournages),
+          data : Object.values(compteTournages),
         }
       ]
-    }
+    },
+    options: {
+      title : { 
+        display: true, 
+        text: "Nombre de tournage par année dans le " + filtreArr,
+    } }
   }
 );
 })
+*/
+
+// FIN BOUTON CHOIX ARRONDISSEMENT
+
+
+
 // récuperation de la valeur dans le filtre déroulant, dans le html
 
-console.log(elementsTournagesFiltre)
+//console.log(elementsTournagesFiltre)
 
 /*
 //compte des tournages par année
@@ -79,9 +180,9 @@ for (let i=0;i<tailleTableau;i++){
   }
 }
 //console.log(compteTournages)
+*/
 
-
-
+/*
 //graphe tournages par années
 new Chart(
   document.getElementById('consolidations'),
@@ -97,7 +198,12 @@ new Chart(
       ]
     }
   }
-);*/
+);
+
+*/
+
+
+
 // compte des arrondissement par tournages 
 let compteTournagesArr={}
 for (let i=0;i<tailleTableau;i++){
