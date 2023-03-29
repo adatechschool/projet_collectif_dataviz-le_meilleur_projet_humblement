@@ -305,18 +305,3 @@ const tableauDetailReduit=(tableauInput)=>{
 
   return tableauDetail
 }
-
-
-// console.log(tableauDetailReduit(elementsTournages))
-
-
-// let tableauTest=[]
-
-
-// for (let i=0;i<10;i++){
-//   let elementTableauTest={}
-//   labelsTableau.forEach(element =>{
-//     elementTableauTest[element] = elementsTournages[i].fields[element]
-//   })
-//   tableauTest.push(elementTableauTest)
-// }
