@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tournages parisiens</title>
     <script type="module" src="index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
-    <h1 id="titre">Page Projet Collectif Data Viz</h1>
+    <h1 id="titre">Filtres</h1>
 
     <label for="anneeTournage">Année Tournage :</label><br>
     <input list="anneeTournage" id="anneeSelect">
@@ -60,7 +60,9 @@
     </datalist>
     <br>
     <br>
-    <button id="boutonValidation"> ok </button><br>
+    <button id="boutonValidation"> ok </button>
+    <br>
+    <br>
     <!-- <label for="annee2">Test Select Multiple</label><br>
     <select multiple
         name="dwarfs"
@@ -77,7 +79,7 @@
     </select> -->
     <h3 id="nombrefilms">Nombre Total de Films</h3>
 
-    <h3>section des Graphes</h3>
+    <h3>Consolidations</h3>
     <div style="width: 800px;"><canvas id="consolidationsAnnee"></canvas></div>
     <div style="width: 800px;"><canvas id="consolidationsArr"></canvas></div>
     <div style="width: 800px;"><canvas id="consolidationsType"></canvas></div>

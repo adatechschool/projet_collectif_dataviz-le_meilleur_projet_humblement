@@ -13,7 +13,6 @@ console.log(elementsTournages)
 
 //affichage titre page HTML, à enlever
 const titreListeTypeTournage = document.getElementById("titre") 
-titreListeTypeTournage.innerText = "Voici la liste des type de tournage :"
 
 //variable pour manipuler un tableau de taille 100
 let tailleTableau = 100
@@ -60,7 +59,7 @@ const generateCharts = (films) =>{
   anneeChart = new Chart(
     document.getElementById('consolidationsAnnee'),
     {
-      type: 'line',
+      type: 'bar',
       data: {
         labels: Object.keys(compteTournagesAnnee),
         datasets: [
@@ -140,7 +139,9 @@ const generateCharts = (films) =>{
     let dateDebut=new Date(films[i].fields.date_debut)
     if (dateDebut.getDay()==dateFin.getDay()){
       dureeTournage=1
-    }
+    } else if(dateDebut.getDay()>dateFin.getDay()){
+      dureeTournage = "NA"
+    }  
     else {
       dureeTournage=dateFin.getDay() - dateDebut.getDay()
     }
@@ -156,7 +157,7 @@ const generateCharts = (films) =>{
   
   
   //graphe tournages par arrondissements 
-  typeChart = new Chart(
+  dureeChart = new Chart(
     document.getElementById('consolidationsDuree'),
     {
       type: 'bar',
@@ -183,11 +184,7 @@ compteFilms(tailleTableau)
 generateCharts(elementsTournages)
 
 
-// const filtre =()=>
-
-//utilisation des filtres
-const boutonValidation = document.getElementById("boutonValidation")
-boutonValidation.addEventListener("click",function(){
+const filtre =()=>{
   let filtreAnnee = document.getElementById("anneeSelect").value  
   let filtreArr = document.getElementById("arrSelect").value
   let filtreType = document.getElementById("typeSelect").value
@@ -212,20 +209,28 @@ boutonValidation.addEventListener("click",function(){
     elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.type_tournage == filtreType)
   }
   else if (filtreType==""){
-    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu)
+    elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu==filtreArr)
   }
   else {
     elementsTournagesFiltre = elementsTournages.filter(tournage => tournage.fields.annee_tournage == filtreAnnee && tournage.fields.ardt_lieu == filtreArr && tournage.fields.type_tournage == filtreType); 
   }
+  console.log(elementsTournagesFiltre)
+  return elementsTournagesFiltre
+}
 
+//utilisation des filtres
+const boutonValidation = document.getElementById("boutonValidation")
+boutonValidation.addEventListener("click",function(){
 
   anneeChart.destroy()
   arrChart.destroy()
   typeChart.destroy()
+  dureeChart.destroy()
   compteTournagesAnnee={}
   compteTournagesArr={}
   compteTournagesType={}
-  generateCharts(elementsTournagesFiltre)
+  compteTournagesDuree={}
+  generateCharts(filtre())
 })
 
 
@@ -277,23 +282,41 @@ const createTable =(tableauDonnees)=>{
   lastChar.appendChild(tableauDetail)
 }
 
-
+//création et affichage du tableau de détails après click que le graph des années
 let graphAnnee=document.getElementById("consolidationsAnnee")
 graphAnnee.addEventListener("click",function(){
-  createTable (tableauTest)
+  //appel de la fonction createTable
+  createTable(tableauDetailReduit(filtre()))
 })
 
 
 
 
-//tableau créé pour test, pas utile
-let tableauTest=[]
+//fonction de focus sur les champs intéressants pour le tableau détail
+const tableauDetailReduit=(tableauInput)=>{
+  let tableauDetail=[]
+  for (let i=0;i<tableauInput.length;i++){
+    let elementTableauDetail={}
+    labelsTableau.forEach(element =>{
+      elementTableauDetail[element] = tableauInput[i].fields[element]
+    })
+    tableauDetail.push(elementTableauDetail)
+  }
 
-
-for (let i=0;i<10;i++){
-  let elementTableauTest={}
-  labelsTableau.forEach(element =>{
-    elementTableauTest[element] = elementsTournages[i].fields[element]
-  })
-  tableauTest.push(elementTableauTest)
+  return tableauDetail
 }
+
+
+// console.log(tableauDetailReduit(elementsTournages))
+
+
+// let tableauTest=[]
+
+
+// for (let i=0;i<10;i++){
+//   let elementTableauTest={}
+//   labelsTableau.forEach(element =>{
+//     elementTableauTest[element] = elementsTournages[i].fields[element]
+//   })
+//   tableauTest.push(elementTableauTest)
+// }
